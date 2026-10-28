@@ -1,0 +1,3 @@
+package healthz
+
+needsServer: true
