@@ -1,12 +1,11 @@
 #!/bin/sh
-# Fail when a CUE file names a database or a database client.
-# A scenario is given baseURL and a charter on PATH. It does not open
-# a database.
+# Fail when a CUE or YAML file names a database or a database client.
+# Charter starts the database. This module never sees it.
 set -eu
 
 cd "$(dirname "$0")/.."
 
-if grep -RInE --include='*.cue' --exclude-dir=cue.mod \
+if grep -RInE --include='*.cue' --include='*.yaml' --exclude-dir=cue.mod \
 	-e 'DATABASE_URL' \
 	-e 'postgres://' \
 	-e 'sqlite:' \
@@ -14,6 +13,6 @@ if grep -RInE --include='*.cue' --exclude-dir=cue.mod \
 	-e 'sqlite3' \
 	.
 then
-	echo "check-boundary: CUE files must not mention a database" >&2
+	echo "check-boundary: CUE and YAML files must not mention a database" >&2
 	exit 1
 fi

@@ -1,3 +1,0 @@
-package healthz
-
-needsServer: true
